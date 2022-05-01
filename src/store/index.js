@@ -1,10 +1,12 @@
-import userModule from './modules/users';
-import {createStore} from 'vuex';
+import playerModule from "./players/index";
+import gameModule from "./game/index";
+import { createStore } from "vuex";
 
 const store = createStore({
-    modules:{
-        users: userModule
-    }
+  modules: {
+    players: playerModule,
+    game: gameModule,
+  },
 });
 
 export default store;

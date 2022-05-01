@@ -1,19 +1,23 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-import Users from "../pages/Users.vue";
-import AddOrUpdateUser from "../pages/AddOrUpdateUser";
+import Game from "../pages/Game.vue";
+import New from "../pages/New.vue";
 
 const routes = [
   {
     path: "/",
-    redirect: "/users",
+    redirect: "/new",
   },
   {
-    path: "/users",
-    component: Users,
+    path: "/new",
+    component: New,
   },
   {
-    path: "/add-or-update/:id",
-    component: AddOrUpdateUser
+    path: "/game",
+    component: Game,
+  },
+  {
+    path: "/:path(.*)*",
+    redirect: "/new",
   },
 ];
 
