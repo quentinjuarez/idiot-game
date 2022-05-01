@@ -22,21 +22,27 @@
     </template>
   </master-layout>
   <master-layout v-else pageTitle="Resultats">
-    <ion-item class="loser">
-      <ion-label>
-        <ion-card-title>Le Perdant</ion-card-title>
-      </ion-label>
-      {{ loser.name }}
-    </ion-item>
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Tous les joueurs</ion-label>
-      </ion-list-header>
-      <ion-item v-for="player in allPlayers" :key="player.id">
-        <ion-label>{{ player.name }}</ion-label>
-        <ion-note slot="end">{{ player.maxScore.max() }}</ion-note>
-      </ion-item>
-    </ion-list>
+    <div class="device">
+      <ion-card>
+        <ion-item class="loser">
+          <ion-label>
+            <ion-card-title>Le Perdant</ion-card-title>
+          </ion-label>
+          {{ loser.name }}
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Tous les joueurs</ion-label>
+          </ion-list-header>
+          <ion-item v-for="player in allPlayers" :key="player.id">
+            <ion-label>{{ player.name }}</ion-label>
+            <ion-note slot="end">{{ player.maxScore.max() }}</ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </div>
     <template v-slot:footerdata>
       <div class="next-player">
         <ion-button mode="ios" @click="endGame()">Terminer</ion-button>
@@ -135,6 +141,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.device {
+  max-width: 400px;
+  margin: 0 auto;
+}
 .wrapper {
   width: 100%;
   height: 100%;
