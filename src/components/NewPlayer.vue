@@ -20,7 +20,7 @@
           >Commencer</ion-button
         >
       </div>
-      <div class="button">
+      <div class="button" v-if="allPlayers.length > 1">
         <a @click="handleCancel" class="link">Annuler</a>
       </div>
     </ion-card>
@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("players", ["lastPlayer"]),
+    ...mapGetters("players", ["lastPlayer", "allPlayers"]),
   },
   methods: {
     setName() {

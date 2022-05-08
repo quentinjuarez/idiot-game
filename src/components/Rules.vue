@@ -28,10 +28,10 @@ export default {
         },
         {
           text:
-            "Le but est de faire un score maximale en enchaînant les lancers.",
+            "Le but est de faire un score maximal en enchaînant les lancers.",
         },
         {
-          text: "Attention, si vous tombez sur 1, votre score devient nul.",
+          text: "Attention, si vous tombez sur 1, votre score retombe à zéro.",
         },
         {
           text:
