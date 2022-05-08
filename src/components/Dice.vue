@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="dice-container" ref="container" @click="roll">
       <div class="dice" ref="dice">
         <div class="face" data-id="1">
@@ -47,8 +47,8 @@ export default {
   props: {
     stopRoll: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -131,9 +131,7 @@ $point-size: 5vmin;
 $point-position: 2.5vmin;
 $face-length: 25vmin;
 
-body {
-  min-height: 100vh;
-  background: #222;
+.body {
   display: flex;
   flex-direction: column;
   align-items: center;

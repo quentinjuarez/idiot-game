@@ -1,11 +1,12 @@
 <template>
   <master-layout v-if="!end" :pageTitle="pageTitle">
+    <Loading :open="loading" @close="closeLoading" :text="loadingText" />
     <div v-if="neverPlayed" class="new-player">
-      <NewPlayer />
+      <NewPlayer @cancel="handleEndRound" />
     </div>
     <div v-else class="wrapper">
       <div class="dice">
-        <div>{{ name }}</div>
+        <div class="name">{{ name }}</div>
         <Dice :stopRoll="failed" @roll="handleRoll" />
         <div>{{ score }}</div>
       </div>
@@ -15,13 +16,13 @@
         <ion-button mode="ios" @click="handleNextPlayer()"
           >Joueur suivant</ion-button
         >
-        <a v-if="round === 0" @click="handleEndRound()"
-          >Tous les joueurs ont fini</a
+        <a v-if="round === 0" @click="handleEndRound()" class="link">
+          Tous les joueurs ont fini</a
         >
       </div>
     </template>
   </master-layout>
-  <master-layout v-else pageTitle="Resultats">
+  <master-layout v-else pageTitle="Résultats">
     <div class="device">
       <ion-card>
         <ion-item class="loser">
@@ -54,6 +55,7 @@
 import { mapGetters, mapActions } from "vuex";
 import NewPlayer from "../components/NewPlayer";
 import Dice from "../components/Dice";
+import Loading from "../components/Loading";
 
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
@@ -63,6 +65,14 @@ export default {
   components: {
     NewPlayer,
     Dice,
+    Loading,
+  },
+  data() {
+    return {
+      failed: false,
+      end: false,
+      loading: false,
+    };
   },
   computed: {
     neverPlayed() {
@@ -86,14 +96,11 @@ export default {
       const argmin = this.finalScores.indexOf(Math.min(...this.finalScores));
       return this.allPlayers[argmin];
     },
+    loadingText() {
+      return "Au tour de " + this.name;
+    },
     ...mapGetters("game", ["started", "round"]),
     ...mapGetters("players", ["lastPlayer", "allPlayers"]),
-  },
-  data() {
-    return {
-      failed: false,
-      end: false,
-    };
   },
   mounted() {
     if (!this.started || this.allPlayers.length === 0) {
@@ -130,6 +137,9 @@ export default {
     endGame() {
       return this.$router.push({ path: "/new" });
     },
+    closeLoading() {
+      this.loading = false;
+    },
     ...mapActions("players", [
       "nextPlayer",
       "updateScore",
@@ -141,10 +151,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.device {
-  max-width: 400px;
-  margin: 0 auto;
-}
 .wrapper {
   width: 100%;
   height: 100%;
@@ -155,12 +161,17 @@ export default {
 }
 .dice {
   width: 100%;
-  height: 50%;
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
 }
+
+.name {
+  font-size: 1rem;
+}
+
 .new-player {
   width: 100%;
   height: 100%;
@@ -181,5 +192,12 @@ export default {
 
 .loser {
   margin: 1rem 0;
+}
+
+.link {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 </style>

@@ -12,7 +12,16 @@
       </ion-item>
 
       <div class="button">
-        <ion-button mode="ios" @click="setName()">Commencer</ion-button>
+        <ion-button
+          mode="ios"
+          @click="setName()"
+          color="secondary"
+          :disabled="name === ''"
+          >Commencer</ion-button
+        >
+      </div>
+      <div class="button">
+        <a @click="handleCancel" class="link">Annuler</a>
       </div>
     </ion-card>
   </div>
@@ -39,11 +48,15 @@ export default {
 
       this.updateName(payload);
     },
-    ...mapActions("players", ["updateName"]),
+    handleCancel() {
+      this.deleteUser(this.lastPlayer.id);
+      this.$emit("cancel");
+    },
+    ...mapActions("players", ["updateName", "deleteUser"]),
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .wrapper {
   width: 100%;
 }
@@ -55,5 +68,12 @@ export default {
 }
 ion-item {
   width: 100%;
+}
+
+.link {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 </style>

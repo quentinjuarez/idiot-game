@@ -10,7 +10,13 @@
           <ion-label>
             Choix des joueurs
           </ion-label>
-          <ion-toggle v-model="users" slot="end"></ion-toggle>
+          <ion-toggle
+            v-model="users"
+            slot="end"
+            color="secondary"
+            disabled
+            class="disabled"
+          ></ion-toggle>
         </ion-item>
         {{ legend }}
       </ion-card-content>
@@ -22,7 +28,7 @@ export default {
   name: "settings",
   data() {
     return {
-      users: false,
+      users: true,
     };
   },
   computed: {
@@ -34,4 +40,8 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style lang="scss">
+.disabled {
+  cursor: disabled;
+}
+</style>

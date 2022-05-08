@@ -8,7 +8,7 @@
 
       <ion-card-content>
         <ion-item v-for="(rule, index) in rules" :key="index">
-          <ion-badge slot="start">{{ index + 1 }}</ion-badge>
+          <ion-badge slot="start" color="secondary">{{ index + 1 }}</ion-badge>
           <ion-label>
             {{ rule.text }}
           </ion-label>

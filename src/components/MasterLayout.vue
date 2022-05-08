@@ -18,15 +18,22 @@
 <script>
 export default {
   props: ["pageTitle"],
+  computed: {
+    bgImage() {
+      return "background-image: url('./assets/mesh-gradient.png');";
+    },
+  },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 ion-toolbar {
   --background: var(--ion-color-primary);
   --color: var(--ion-color-primary-contrast);
 }
+
 .mobile-aspect {
   max-width: 500px;
   margin: 0 auto;
+  height: 100%;
 }
 </style>
