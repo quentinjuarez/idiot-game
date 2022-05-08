@@ -6,22 +6,27 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <slot> </slot>
+      <div class="mobile-aspect">
+        <slot> </slot>
+      </div>
     </ion-content>
     <ion-footer>
-        <slot name="footerdata"></slot>
+      <slot name="footer"></slot>
     </ion-footer>
   </ion-page>
 </template>
 <script>
 export default {
   props: ["pageTitle"],
-  
 };
 </script>
 <style scoped>
-ion-toolbar{
-    --background: var(--ion-color-primary);
-    --color: var(--ion-color-primary-contrast)
+ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+.mobile-aspect {
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>

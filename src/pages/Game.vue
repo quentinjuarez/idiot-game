@@ -10,7 +10,7 @@
         <div>{{ score }}</div>
       </div>
     </div>
-    <template v-slot:footerdata>
+    <template v-slot:footer>
       <div v-if="!neverPlayed" class="next-player">
         <ion-button mode="ios" @click="handleNextPlayer()"
           >Joueur suivant</ion-button
@@ -43,7 +43,7 @@
         </ion-list>
       </ion-card>
     </div>
-    <template v-slot:footerdata>
+    <template v-slot:footer>
       <div class="next-player">
         <ion-button mode="ios" @click="endGame()">Terminer</ion-button>
       </div>

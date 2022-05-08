@@ -1,13 +1,24 @@
 <template>
-  <master-layout pageTitle="Jeu du Con">
+  <master-layout pageTitle="Nouvelle Partie">
+    <Rules />
+    <Settings />
     <div class="new-game">
-      <ion-button mode="ios" @click="startNewGame()">Nouvelle partie</ion-button>
+      <ion-button mode="ios" @click="startNewGame()"
+        >Commencer une partie</ion-button
+      >
     </div>
   </master-layout>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Rules from "../components/Rules";
+import Settings from "../components/Settings";
 export default {
+  name: "new",
+  components: {
+    Rules,
+    Settings,
+  },
   computed: {
     ...mapGetters("game", ["started"]),
   },
@@ -28,7 +39,6 @@ export default {
 </script>
 <style>
 .new-game {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
