@@ -3,7 +3,7 @@
     <ion-card>
       <ion-list>
         <ion-list-header>
-          <ion-label>{{ losersTitle }}</ion-label>
+          {{ losersTitle }}
         </ion-list-header>
         <ion-item class="loser" v-for="loser in losers" :key="loser.id">
           <ion-label>{{ loser.name }}</ion-label>
@@ -14,11 +14,35 @@
     <ion-card>
       <ion-list>
         <ion-list-header>
-          <ion-label>Tous les joueurs</ion-label>
+          Tous les joueurs
         </ion-list-header>
-        <ion-item v-for="player in allPlayers" :key="player.id">
+        <ion-item
+          v-for="(player, index) in allPlayers"
+          :key="player.id"
+          button
+          @click="openStats(index)"
+          detail
+        >
           <ion-label>{{ player.name }}</ion-label>
           <ion-badge slot="end">{{ player.maxScore.max() }}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+    <ion-card>
+      <ion-list>
+        <ion-list-header>
+          Statistiques
+        </ion-list-header>
+        <ion-item
+          class="loser"
+          v-for="player in playerMaxActions"
+          :key="player.id"
+        >
+          <ion-label>
+            <ion-text color="medium">Le plus de lancer</ion-text>
+            <h4>{{ player.name }}</h4>
+          </ion-label>
+          <ion-badge slot="end"> {{ maxActions }}</ion-badge>
         </ion-item>
       </ion-list>
     </ion-card>
@@ -30,10 +54,12 @@
         </ion-button>
       </div>
     </template>
+    <Stats :open="stats" @close="stats = false" :index="selected" />
   </master-layout>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Stats from "../components/Stats";
 
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
@@ -49,6 +75,15 @@ Array.prototype.indexesOf = function(val) {
 
 export default {
   name: "results",
+  components: {
+    Stats,
+  },
+  data() {
+    return {
+      stats: false,
+      selected: 0,
+    };
+  },
   computed: {
     finalScores() {
       return this.allPlayers.map((player) => {
@@ -66,6 +101,25 @@ export default {
       const argmax = this.finalScores.indexesOf(Math.max(...this.finalScores));
       return this.allPlayers.filter((player, index) => argmax.includes(index));
     },
+    allActions() {
+      return this.allPlayers.map((player) => {
+        return player.actions;
+      });
+    },
+    totalActions() {
+      return this.allActions.map((actions) =>
+        actions.map((action) => action.length).reduce((a, b) => (a = a + b))
+      );
+    },
+    maxActions() {
+      return Math.max(...this.totalActions);
+    },
+    playerMaxActions() {
+      const indexes = this.totalActions.indexesOf(
+        Math.max(...this.totalActions)
+      );
+      return this.allPlayers.filter((player, index) => indexes.includes(index));
+    },
     ...mapGetters("players", ["allPlayers"]),
     ...mapGetters("game", ["ended"]),
   },
@@ -79,6 +133,10 @@ export default {
       if (this.allPlayers.length > 0) return;
       return this.$router.push({ path: "/new" });
     },
+    openStats(index) {
+      this.selected = index;
+      this.stats = true;
+    },
     ...mapActions("game", ["resetGame"]),
     ...mapActions("players", ["resetPlayers"]),
   },
@@ -90,5 +148,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+:root {
+  --ion-safe-area-top: 20px;
+  --ion-safe-area-bottom: 22px;
 }
 </style>
