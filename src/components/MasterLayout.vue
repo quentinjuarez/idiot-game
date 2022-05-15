@@ -3,6 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title mode="ios">{{ pageTitle }}</ion-title>
+        <ion-text slot="end" color="medium">0.1.1</ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -29,6 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 ion-toolbar {
+  padding: 0 1rem;
   // --background: var(--ion-color-primary);
   // --color: var(--ion-color-primary-contrast);
 }
