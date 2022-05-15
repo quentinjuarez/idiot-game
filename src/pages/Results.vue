@@ -22,6 +22,7 @@
         </ion-item>
       </ion-list>
     </ion-card>
+
     <template v-slot:footer>
       <div class="new-game">
         <ion-button mode="ios" @click="newGame()">

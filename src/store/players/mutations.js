@@ -13,6 +13,9 @@ export const mutations = {
   updateScore(state, payload) {
     const { id, score, failed, round } = payload;
     const index = state.players.findIndex((u) => u.id === id);
+
+    state.players[index].actions[round].push(score);
+
     if (failed) {
       state.players[index].maxScore[round] = 0;
       return (state.players[index].score = 0);

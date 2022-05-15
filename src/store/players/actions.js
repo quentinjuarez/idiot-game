@@ -5,7 +5,7 @@ export const actions = {
     commit("addPlayer", {
       id: uid(),
       name: "",
-      actions: [],
+      actions: [[], [], []],
       score: 0,
       maxScore: [0, 0, 0],
       played: false,
@@ -16,7 +16,7 @@ export const actions = {
     commit("addPlayer", {
       id: uid(),
       name: name,
-      actions: [],
+      actions: [[], [], []],
       score: 0,
       maxScore: [0, 0, 0],
       played: false,

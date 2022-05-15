@@ -25,6 +25,7 @@ export default {
         duration: this.timeout,
         spinner: null,
         translucent: true,
+        mode: "ios",
         animated: false,
       });
 

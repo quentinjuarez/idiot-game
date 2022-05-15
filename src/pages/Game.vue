@@ -76,7 +76,7 @@ export default {
       return this.allPlayers[argmin];
     },
     loadingText() {
-      return "Au tour de " + this.name;
+      return `Round ${this.round + 1} <br>` + "Au tour de " + this.name;
     },
     ...mapGetters("game", ["started", "round", "params"]),
     ...mapGetters("players", ["lastPlayer", "allPlayers"]),
