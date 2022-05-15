@@ -181,9 +181,9 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-item-background: #242629;
 
-    --ion-toolbar-background: #0d0d0d;
+    --ion-toolbar-background: #1f1f1f;
 
-    --ion-item-background: #000000;
+    --ion-tab-bar-background: #1f1f1f;
 
     --ion-card-background: #242629;
   }

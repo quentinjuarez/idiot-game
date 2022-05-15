@@ -1,13 +1,13 @@
 export const getters = {
   allPlayers(state) {
-    return state.users;
+    return state.players;
   },
   lastPlayer(state) {
-    return state.users.find((user) => !user.played);
+    return state.players.find((player) => !player.played);
   },
-  userById(state) {
+  playerById(state) {
     return (id) => {
-      return state.users.find((u) => u.id == id);
+      return state.players.find((u) => u.id == id);
     };
   },
 };

@@ -1,8 +1,9 @@
 <template>
-  <master-layout v-if="!end" :pageTitle="pageTitle">
+  <master-layout :pageTitle="pageTitle">
     <Loading :open="loading" @close="closeLoading" :text="loadingText" />
+    <Alert :open="alert" @choice="alertEndRound" />
     <div v-if="neverPlayed" class="new-player">
-      <NewPlayer @cancel="handleEndRound" />
+      <NewPlayer @cancel="alert = true" />
     </div>
     <div v-else class="wrapper">
       <div class="dice">
@@ -16,37 +17,13 @@
         <ion-button mode="ios" @click="handleNextPlayer()"
           >Joueur suivant</ion-button
         >
-        <a v-if="round === 0" @click="handleEndRound()" class="link">
+        <a
+          v-if="round === 0 && !params.players"
+          @click="alert = true"
+          class="link"
+        >
           Tous les joueurs ont fini</a
         >
-      </div>
-    </template>
-  </master-layout>
-  <master-layout v-else pageTitle="Résultats">
-    <div class="device">
-      <ion-card>
-        <ion-item class="loser">
-          <ion-label>
-            <ion-card-title>Le Perdant</ion-card-title>
-          </ion-label>
-          {{ loser.name }}
-        </ion-item>
-      </ion-card>
-      <ion-card>
-        <ion-list>
-          <ion-list-header>
-            <ion-label>Tous les joueurs</ion-label>
-          </ion-list-header>
-          <ion-item v-for="player in allPlayers" :key="player.id">
-            <ion-label>{{ player.name }}</ion-label>
-            <ion-note slot="end">{{ player.maxScore.max() }}</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-    </div>
-    <template v-slot:footer>
-      <div class="next-player">
-        <ion-button mode="ios" @click="endGame()">Terminer</ion-button>
       </div>
     </template>
   </master-layout>
@@ -56,6 +33,7 @@ import { mapGetters, mapActions } from "vuex";
 import NewPlayer from "../components/NewPlayer";
 import Dice from "../components/Dice";
 import Loading from "../components/Loading";
+import Alert from "../components/Alert";
 
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
@@ -66,12 +44,13 @@ export default {
     NewPlayer,
     Dice,
     Loading,
+    Alert,
   },
   data() {
     return {
       failed: false,
-      end: false,
       loading: false,
+      alert: false,
     };
   },
   computed: {
@@ -99,13 +78,15 @@ export default {
     loadingText() {
       return "Au tour de " + this.name;
     },
-    ...mapGetters("game", ["started", "round"]),
+    ...mapGetters("game", ["started", "round", "params"]),
     ...mapGetters("players", ["lastPlayer", "allPlayers"]),
   },
   mounted() {
     if (!this.started || this.allPlayers.length === 0) {
       return this.$router.push({ path: "/new" });
     }
+
+    if (this.ended) return this.$router.push({ path: "/results" });
   },
   methods: {
     handleRoll(result) {
@@ -122,20 +103,26 @@ export default {
     handleNextPlayer() {
       this.hasPlayed(this.lastPlayer.id);
       this.failed = false;
-      if (this.round === 0) return this.nextPlayer();
+      if (this.round === 0 && !this.params.players) return this.nextPlayer();
 
+      this.loading = true;
       if (this.lastPlayer === undefined) return this.handleEndRound();
+    },
+    alertEndRound(e) {
+      if (e) {
+        this.handleEndRound();
+      }
+      this.alert = false;
     },
     handleEndRound() {
       this.failed = false;
       this.resetPlayersScore();
       if (this.round === 2) {
-        return (this.end = true);
+        this.loading = false;
+        this.endGame();
+        return this.$router.push({ path: "/results" });
       }
       this.nextRound();
-    },
-    endGame() {
-      return this.$router.push({ path: "/new" });
     },
     closeLoading() {
       this.loading = false;
@@ -146,7 +133,7 @@ export default {
       "hasPlayed",
       "resetPlayersScore",
     ]),
-    ...mapActions("game", ["nextRound"]),
+    ...mapActions("game", ["nextRound", "endGame"]),
   },
 };
 </script>

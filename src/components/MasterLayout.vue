@@ -7,11 +7,13 @@
     </ion-header>
     <ion-content>
       <div class="mobile-aspect">
-        <slot> </slot>
+        <slot></slot>
       </div>
     </ion-content>
     <ion-footer>
-      <slot name="footer"></slot>
+      <div class="footer">
+        <slot name="footer"></slot>
+      </div>
     </ion-footer>
   </ion-page>
 </template>
@@ -27,13 +29,23 @@ export default {
 </script>
 <style lang="scss" scoped>
 ion-toolbar {
-  --background: var(--ion-color-primary);
-  --color: var(--ion-color-primary-contrast);
+  // --background: var(--ion-color-primary);
+  // --color: var(--ion-color-primary-contrast);
+}
+
+ion-footer {
+  --background: var(--ion-toolbar-background);
+  // --color: var(--ion-color-primary-contrast);
 }
 
 .mobile-aspect {
   max-width: 500px;
   margin: 0 auto;
-  height: 100%;
+  height: 98%;
+}
+
+.footer {
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>

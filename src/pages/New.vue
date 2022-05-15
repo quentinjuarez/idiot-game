@@ -3,9 +3,9 @@
     <Rules />
     <Settings />
     <div class="new-game">
-      <ion-button mode="ios" @click="startNewGame()"
-        >Commencer une partie</ion-button
-      >
+      <ion-button mode="ios" @click="startNewGame()">
+        Commencer une partie
+      </ion-button>
     </div>
   </master-layout>
 </template>
@@ -20,20 +20,23 @@ export default {
     Settings,
   },
   computed: {
-    ...mapGetters("game", ["started"]),
+    ...mapGetters("game", ["started", "params", "ended"]),
   },
   mounted() {
-    this.resetPlayers();
-    this.resetGame();
+    if (this.ended) return this.$router.push({ path: "/results" });
+    if (this.started) return this.$router.push({ path: "/game" });
   },
   methods: {
     startNewGame() {
       this.startGame();
-      this.nextPlayer();
-      return this.$router.push({ path: "/game" });
+      if (!this.params.players) {
+        this.nextPlayer();
+        return this.$router.push({ path: "/game" });
+      }
+      return this.$router.push({ path: "/players" });
     },
-    ...mapActions("game", ["startGame", "resetGame"]),
-    ...mapActions("players", ["nextPlayer", "resetPlayers"]),
+    ...mapActions("game", ["startGame"]),
+    ...mapActions("players", ["nextPlayer"]),
   },
 };
 </script>
@@ -42,5 +45,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
 }
 </style>

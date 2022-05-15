@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import Game from "../pages/Game.vue";
 import New from "../pages/New.vue";
+import Results from "../pages/Results.vue";
+import Players from "../pages/Players.vue";
 
 const routes = [
   {
@@ -14,6 +16,14 @@ const routes = [
   {
     path: "/game",
     component: Game,
+  },
+  {
+    path: "/results",
+    component: Results,
+  },
+  {
+    path: "/players",
+    component: Players,
   },
   {
     path: "/:path(.*)*",

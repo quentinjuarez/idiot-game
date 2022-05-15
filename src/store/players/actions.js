@@ -1,8 +1,21 @@
+import { uid } from "./utils";
+
 export const actions = {
-  nextPlayer({ commit, state }) {
+  nextPlayer({ commit }) {
     commit("addPlayer", {
-      id: state.users.length + 1,
+      id: uid(),
       name: "",
+      actions: [],
+      score: 0,
+      maxScore: [0, 0, 0],
+      played: false,
+    });
+  },
+
+  newPlayer({ commit }, name) {
+    commit("addPlayer", {
+      id: uid(),
+      name: name,
       actions: [],
       score: 0,
       maxScore: [0, 0, 0],
@@ -26,15 +39,15 @@ export const actions = {
     commit("resetPlayersScore");
   },
 
-  updateUser({ commit }, payload) {
-    commit("updateUser", payload);
+  updatePlayer({ commit }, payload) {
+    commit("updatePlayer", payload);
   },
 
   resetPlayers({ commit }) {
     commit("resetPlayers");
   },
 
-  deleteUser({ commit }, id) {
-    commit("deleteUser", id);
+  deletePlayer({ commit }, id) {
+    commit("deletePlayer", id);
   },
 };

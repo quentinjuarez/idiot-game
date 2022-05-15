@@ -11,10 +11,9 @@
             Choix des joueurs
           </ion-label>
           <ion-toggle
-            v-model="users"
+            v-model="players"
             slot="end"
             color="secondary"
-            disabled
             class="disabled"
           ></ion-toggle>
         </ion-item>
@@ -24,19 +23,28 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "settings",
-  data() {
-    return {
-      users: true,
-    };
-  },
   computed: {
     legend() {
-      return this.users
-        ? "Un par un. Vous devrez indiquer quand tous les joueurs ont joué au moins une fois."
-        : "Avant le début de la partie.";
+      return this.players
+        ? "Avant le début de la partie."
+        : "Un par un. Vous devrez indiquer quand tous les joueurs ont joué au moins une fois.";
     },
+    players: {
+      get() {
+        return this.params.players;
+      },
+      set(e) {
+        return this.updateParams({ key: "players", value: e });
+      },
+    },
+    ...mapGetters("game", ["params"]),
+  },
+  methods: {
+    ...mapActions("game", ["updateParams"]),
   },
 };
 </script>

@@ -10,4 +10,12 @@ export const actions = {
   resetGame({ commit }) {
     commit("resetGame");
   },
+
+  endGame({ commit }) {
+    commit("endGame", true);
+  },
+
+  updateParams({ commit }, { key, value }) {
+    commit("updateParams", { key, value });
+  },
 };

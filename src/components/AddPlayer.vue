@@ -4,8 +4,11 @@
       <ion-item>
         <ion-label position="stacked">Nom</ion-label>
         <ion-input
+          autofocus="true"
+          autocapitalize="on"
+          ref="input"
           v-model="name"
-          v-on:keyup.enter="setName"
+          v-on:keyup.enter="addPlayer"
           type="text"
           placeholder="Entre ton nom"
         ></ion-input>
@@ -14,46 +17,33 @@
       <div class="button">
         <ion-button
           mode="ios"
-          @click="setName()"
+          @click="addPlayer()"
           color="secondary"
           :disabled="name === ''"
-          >Commencer</ion-button
+          >Ajouter</ion-button
         >
-      </div>
-      <div class="button" v-if="allPlayers.length > 1 && !params.players">
-        <a @click="handleCancel" class="link">Annuler</a>
       </div>
     </ion-card>
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
-  name: "new-player",
+  name: "add-player",
   data() {
     return {
       name: "",
     };
   },
-  computed: {
-    ...mapGetters("players", ["lastPlayer", "allPlayers"]),
-    ...mapGetters("game", ["params"]),
-  },
   methods: {
-    setName() {
+    addPlayer() {
       if (!this.name) return;
-      const payload = {
-        id: this.lastPlayer.id,
-        name: this.name,
-      };
-
-      this.updateName(payload);
+      this.newPlayer(this.name);
+      this.name = "";
+      const { input } = this.$refs;
+      input.$el.setFocus();
     },
-    handleCancel() {
-      this.deletePlayer(this.lastPlayer.id);
-      this.$emit("cancel");
-    },
-    ...mapActions("players", ["updateName", "deletePlayer"]),
+    ...mapActions("players", ["newPlayer"]),
   },
 };
 </script>
