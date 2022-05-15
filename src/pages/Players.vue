@@ -26,7 +26,12 @@
         <ion-button mode="ios" fill="clear" @click="cancelNewGame"
           >Annuler</ion-button
         >
-        <ion-button mode="ios" @click="startNewGame">Commencer</ion-button>
+        <ion-button
+          mode="ios"
+          @click="startNewGame"
+          :disabled="!allPlayers.length"
+          >Commencer</ion-button
+        >
       </div>
     </template>
   </master-layout>

@@ -1,7 +1,6 @@
+import { defaultState } from "./state";
+
 export const mutations = {
-  saveallPlayers(state, payload) {
-    state.players = payload;
-  },
   addPlayer(state, payload) {
     state.players.push(payload);
   },
@@ -42,7 +41,8 @@ export const mutations = {
     state.players = state.players.filter((u) => u.id !== id);
   },
 
+  // eslint-disable-next-line no-unused-vars
   resetPlayers(state) {
-    state.players = [];
+    state = Object.assign(state, defaultState());
   },
 };

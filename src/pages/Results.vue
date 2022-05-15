@@ -32,7 +32,7 @@
   </master-layout>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
@@ -75,10 +75,11 @@ export default {
     newGame() {
       this.resetPlayers();
       this.resetGame();
+      if (this.allPlayers.length > 0) return;
       return this.$router.push({ path: "/new" });
     },
-    ...mapGetters("game", ["resetGame"]),
-    ...mapGetters("players", ["resetPlayers"]),
+    ...mapActions("game", ["resetGame"]),
+    ...mapActions("players", ["resetPlayers"]),
   },
 };
 </script>

@@ -1,3 +1,5 @@
+import { defaultState } from "./state";
+
 export const mutations = {
   startGame(state, payload) {
     state.started = payload;
@@ -7,14 +9,9 @@ export const mutations = {
     state.round += 1;
   },
 
+  // eslint-disable-next-line no-unused-vars
   resetGame(state) {
-    state.started = false;
-    state.params = {
-      players: true,
-      round: 3,
-    };
-    state.round = 0;
-    state.ended = false;
+    state = Object.assign(state, defaultState());
   },
 
   endGame(state, payload) {
