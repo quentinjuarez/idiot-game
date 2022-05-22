@@ -2,14 +2,14 @@
   <div class="body">
     <div class="dice-container" ref="container" @click="roll">
       <div class="dice" ref="dice">
-        <div class="face" data-id="1">
+        <div class="face" data-id="1" :class="{ failed: stopRoll }">
           <div class="point point-middle point-center"></div>
         </div>
-        <div class="face" data-id="2">
+        <div class="face" data-id="2" :class="{ failed: stopRoll }">
           <div class="point point-top point-right"></div>
           <div class="point point-bottom point-left"></div>
         </div>
-        <div class="face" data-id="6">
+        <div class="face" data-id="6" :class="{ failed: stopRoll }">
           <div class="point point-top point-right"></div>
           <div class="point point-top point-left"></div>
           <div class="point point-middle point-right"></div>
@@ -17,19 +17,19 @@
           <div class="point point-bottom point-right"></div>
           <div class="point point-bottom point-left"></div>
         </div>
-        <div class="face" data-id="5">
+        <div class="face" data-id="5" :class="{ failed: stopRoll }">
           <div class="point point-top point-right"></div>
           <div class="point point-top point-left"></div>
           <div class="point point-middle point-center"></div>
           <div class="point point-bottom point-right"></div>
           <div class="point point-bottom point-left"></div>
         </div>
-        <div class="face" data-id="3">
+        <div class="face" data-id="3" :class="{ failed: stopRoll }">
           <div class="point point-top point-right"></div>
           <div class="point point-middle point-center"></div>
           <div class="point point-bottom point-left"></div>
         </div>
-        <div class="face" data-id="4">
+        <div class="face" data-id="4" :class="{ failed: stopRoll }">
           <div class="point point-top point-right"></div>
           <div class="point point-top point-left"></div>
           <div class="point point-bottom point-right"></div>
@@ -167,6 +167,17 @@ $face-length: 25vmin;
   transform: rotateX(0deg) rotateY(180deg);
   transform-origin: 50% 50% ($face-size * -0.5);
   /*backface-visibility: hidden;*/
+  --shadow: var(--ion-color-dark);
+  &:hover {
+    box-shadow: 0 0 20px 1px var(--ion-color-medium);
+  }
+}
+
+.failed {
+  cursor: not-allowed;
+  &:hover {
+    box-shadow: 0 0 20px 1px var(--ion-color-danger);
+  }
 }
 
 .face:nth-child(1) {
