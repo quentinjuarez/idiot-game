@@ -65,6 +65,7 @@ export default {
     roll() {
       if (!this.canRoll || this.stopRoll) return;
       this.canRoll = false;
+      this.$emit("fetching", true);
       const { dice } = this.$refs;
 
       const xTurn = 4 + getRandomInt(this.rollMax),
@@ -109,10 +110,12 @@ export default {
         this.result = 3;
       }
 
-      setTimeout(() => {
-        this.canRoll = true;
-        this.$emit("roll", this.result);
-      }, this.delay);
+      setTimeout(this.resolveRoll, this.delay);
+    },
+    resolveRoll() {
+      this.canRoll = true;
+      this.$emit("fetching", false);
+      this.$emit("roll", this.result);
     },
   },
 };

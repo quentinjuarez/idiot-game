@@ -1,5 +1,5 @@
 <template>
-  <master-layout :pageTitle="pageTitle">
+  <master-layout :pageTitle="pageTitle" :menu="true">
     <Loading :open="loading" @close="closeLoading" :text="loadingText" />
     <Alert :open="alert" @choice="alertEndRound" />
     <div v-if="neverPlayed" class="new-player">
@@ -8,13 +8,17 @@
     <div v-else class="wrapper">
       <div class="dice">
         <div class="name">{{ name }}</div>
-        <Dice :stopRoll="failed" @roll="handleRoll" />
+        <Dice
+          :stopRoll="failed"
+          @roll="handleRoll"
+          @fetching="fetching = $event"
+        />
         <div>{{ score }}</div>
       </div>
     </div>
     <template v-slot:footer>
       <div v-if="!neverPlayed" class="next-player">
-        <ion-button mode="ios" @click="handleNextPlayer()"
+        <ion-button mode="ios" @click="handleNextPlayer()" :disabled="fetching"
           >Joueur suivant</ion-button
         >
         <a
@@ -35,10 +39,6 @@ import Dice from "../components/Dice";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
 
-Array.prototype.max = function() {
-  return Math.max.apply(null, this);
-};
-
 export default {
   components: {
     NewPlayer,
@@ -48,6 +48,7 @@ export default {
   },
   data() {
     return {
+      fetching: false,
       failed: false,
       loading: false,
       alert: false,
@@ -64,7 +65,7 @@ export default {
       return `Partie - Round ${this.round + 1}`;
     },
     score() {
-      return `${this.lastPlayer?.score} (${this.lastPlayer?.maxScore.max()})`;
+      return `${this.lastPlayer?.score} (${this.lastPlayer?.maxScore.sum()})`;
     },
     finalScores() {
       return this.allPlayers.map((player) => {

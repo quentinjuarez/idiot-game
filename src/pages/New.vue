@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     startNewGame() {
-      this.resetPlayers();
+      this.resetPlayersAllScores();
       this.resetGame();
       this.startGame();
       if (!this.params.players) {
@@ -38,7 +38,7 @@ export default {
       return this.$router.push({ path: "/players" });
     },
     ...mapActions("game", ["startGame", "resetGame"]),
-    ...mapActions("players", ["nextPlayer", "resetPlayers"]),
+    ...mapActions("players", ["nextPlayer", "resetPlayersAllScores"]),
   },
 };
 </script>

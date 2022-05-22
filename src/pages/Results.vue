@@ -52,6 +52,9 @@
         <ion-button mode="ios" @click="newGame()">
           Nouvelle partie
         </ion-button>
+        <ion-button mode="ios" @click="replayGame()">
+          Rejouer
+        </ion-button>
       </div>
     </template>
     <Stats :open="stats" @close="stats = false" :index="selected" />
@@ -60,18 +63,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Stats from "../components/Stats";
-
-Array.prototype.max = function() {
-  return Math.max.apply(null, this);
-};
-
-Array.prototype.indexesOf = function(val) {
-  var indices = [];
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] === val) indices.push(i);
-  }
-  return indices;
-};
 
 export default {
   name: "results",
@@ -128,17 +119,21 @@ export default {
   },
   methods: {
     newGame() {
-      this.resetPlayers();
+      this.resetPlayersAllScores();
       this.resetGame();
-      if (this.allPlayers.length > 0) return;
       return this.$router.push({ path: "/new" });
+    },
+    replayGame() {
+      this.resetPlayersAllScores();
+      this.rePlay();
+      return this.$router.push({ path: "/game" });
     },
     openStats(index) {
       this.selected = index;
       this.stats = true;
     },
-    ...mapActions("game", ["resetGame"]),
-    ...mapActions("players", ["resetPlayers"]),
+    ...mapActions("game", ["resetGame", "rePlay"]),
+    ...mapActions("players", ["resetPlayers", "resetPlayersAllScores"]),
   },
 };
 </script>
@@ -148,9 +143,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
 :root {
-  --ion-safe-area-top: 20px;
-  --ion-safe-area-bottom: 22px;
+  --ion-safe-area-top: 20px !important;
+  --ion-safe-area-bottom: 22px !important;
 }
 </style>

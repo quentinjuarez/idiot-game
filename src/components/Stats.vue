@@ -20,7 +20,13 @@
         <ion-card v-for="round in [1, 2, 3]" :key="round">
           <ion-list>
             <ion-list-header>Round {{ round }}</ion-list-header>
-            <ion-item v-for="action in actions[round - 1]" :key="action">
+            <ion-item v-if="!actions[round - 1].length">
+              <ion-label>{{ "Aucun lancer" }}</ion-label>
+            </ion-item>
+            <ion-item
+              v-for="(action, index) in actions[round - 1]"
+              :key="index"
+            >
               <ion-label>{{ action }}</ion-label>
             </ion-item>
           </ion-list>
@@ -51,4 +57,4 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style lang="scss" scoped></style>

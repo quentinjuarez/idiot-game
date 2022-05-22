@@ -40,6 +40,20 @@ export const mutations = {
     state.players = toResetPlayers;
   },
 
+  resetPlayersAllScores(state) {
+    const toResetPlayers = state.players.map((u) => {
+      return {
+        ...u,
+        played: false,
+        score: 0,
+        maxScore: [0, 0, 0],
+        actions: [[], [], []],
+      };
+    });
+
+    state.players = toResetPlayers;
+  },
+
   deletePlayer(state, id) {
     state.players = state.players.filter((u) => u.id !== id);
   },

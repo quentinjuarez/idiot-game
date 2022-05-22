@@ -8,6 +8,9 @@
         <ion-list>
           <ion-list-header>
             <ion-label>Tous les joueurs</ion-label>
+            <ion-button size="small" @click="resetPlayers">
+              Supprimer
+            </ion-button>
           </ion-list-header>
           <ion-item v-for="player in allPlayers" :key="player.id">
             <ion-label>{{ player.name }}</ion-label>
@@ -55,12 +58,10 @@ export default {
       return this.$router.push({ path: "/game" });
     },
     cancelNewGame() {
-      this.resetPlayers();
-      this.resetGame();
       return this.$router.push({ path: "/new" });
     },
     ...mapActions("players", ["deletePlayer", "resetPlayers"]),
-    ...mapActions("game", ["startGame", "resetGame"]),
+    ...mapActions("game", ["startGame"]),
   },
 };
 </script>

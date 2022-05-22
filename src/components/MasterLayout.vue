@@ -1,13 +1,17 @@
 <template>
   <ion-page>
+    <MenuBar />
     <ion-header>
       <ion-toolbar>
+        <ion-buttons v-if="menu" slot="start" mode="ios">
+          <ion-menu-button color="dark"></ion-menu-button>
+        </ion-buttons>
         <ion-title mode="ios">{{ pageTitle }}</ion-title>
-        <ion-text slot="end" color="medium">0.1.1</ion-text>
+        <ion-text slot="end" color="medium">0.1.2</ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div class="mobile-aspect">
+      <div class="mobile-aspect" id="main-content">
         <slot></slot>
       </div>
     </ion-content>
@@ -19,11 +23,21 @@
   </ion-page>
 </template>
 <script>
+import MenuBar from "./MenuBar";
+
 export default {
-  props: ["pageTitle"],
-  computed: {
-    bgImage() {
-      return "background-image: url('./assets/mesh-gradient.png');";
+  name: "master-layout",
+  components: {
+    MenuBar,
+  },
+  props: {
+    pageTitle: {
+      type: String,
+      default: "",
+    },
+    menu: {
+      type: Boolean,
+      default: false,
     },
   },
 };

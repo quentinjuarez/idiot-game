@@ -18,4 +18,8 @@ export const actions = {
   updateParams({ commit }, { key, value }) {
     commit("updateParams", { key, value });
   },
+
+  rePlay({ commit }) {
+    commit("rePlay");
+  },
 };

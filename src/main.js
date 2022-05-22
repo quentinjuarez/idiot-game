@@ -28,6 +28,22 @@ import MasterLayout from "./components/MasterLayout.vue";
 
 import store from "./store/index";
 
+Array.prototype.max = function() {
+  return Math.max.apply(null, this);
+};
+
+Array.prototype.indexesOf = function(val) {
+  var indices = [];
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] === val) indices.push(i);
+  }
+  return indices;
+};
+
+Array.prototype.sum = function() {
+  return this.reduce((a, b) => a + b, 0);
+};
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);

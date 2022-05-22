@@ -39,6 +39,10 @@ export const actions = {
     commit("resetPlayersScore");
   },
 
+  resetPlayersAllScores({ commit }) {
+    commit("resetPlayersAllScores");
+  },
+
   updatePlayer({ commit }, payload) {
     commit("updatePlayer", payload);
   },

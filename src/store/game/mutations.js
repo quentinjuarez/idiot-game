@@ -21,4 +21,10 @@ export const mutations = {
   updateParams(state, { key, value }) {
     state.params[key] = value;
   },
+
+  rePlay(state) {
+    state.started = true;
+    state.ended = true;
+    state.round = 0;
+  },
 };
