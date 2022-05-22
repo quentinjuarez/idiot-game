@@ -9,7 +9,7 @@
       <div class="dice">
         <div class="name">{{ name }}</div>
         <Dice
-          :stopRoll="failed"
+          :stopRoll="lastPlayer.failed"
           @roll="handleRoll"
           @fetching="fetching = $event"
         />
@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       fetching: false,
-      failed: false,
       loading: false,
       alert: false,
     };
@@ -91,11 +90,10 @@ export default {
   },
   methods: {
     handleRoll(result) {
-      if (result === 1) this.failed = true;
       const payload = {
         id: this.lastPlayer.id,
         score: result,
-        failed: this.failed,
+        failed: result === 1,
         round: this.round,
       };
 
@@ -103,7 +101,6 @@ export default {
     },
     handleNextPlayer() {
       this.hasPlayed(this.lastPlayer.id);
-      this.failed = false;
       if (this.round === 0 && !this.params.players) return this.nextPlayer();
 
       this.loading = true;
@@ -116,7 +113,6 @@ export default {
       this.alert = false;
     },
     handleEndRound() {
-      this.failed = false;
       this.resetPlayersScore();
       if (this.round === 2) {
         this.loading = false;

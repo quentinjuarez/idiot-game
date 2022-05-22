@@ -8,6 +8,7 @@ export const actions = {
       actions: [[], [], []],
       score: 0,
       maxScore: [0, 0, 0],
+      failed: false,
       played: false,
     });
   },
@@ -19,6 +20,7 @@ export const actions = {
       actions: [[], [], []],
       score: 0,
       maxScore: [0, 0, 0],
+      failed: false,
       played: false,
     });
   },

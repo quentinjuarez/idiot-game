@@ -17,6 +17,7 @@ export const mutations = {
     state.players[index].actions[round].push(score);
 
     if (failed) {
+      state.players[index].failed = true;
       state.players[index].maxScore[round] = 0;
       return (state.players[index].score = 0);
     }
@@ -34,7 +35,7 @@ export const mutations = {
 
   resetPlayersScore(state) {
     const toResetPlayers = state.players.map((u) => {
-      return { ...u, played: false, score: 0 };
+      return { ...u, played: false, failed: false, score: 0 };
     });
 
     state.players = toResetPlayers;
@@ -46,6 +47,7 @@ export const mutations = {
         ...u,
         played: false,
         score: 0,
+        failed: false,
         maxScore: [0, 0, 0],
         actions: [[], [], []],
       };
