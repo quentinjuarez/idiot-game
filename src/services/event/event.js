@@ -1,11 +1,11 @@
 // import * as data from "./event.data";
 
-export class eventService {
+export class EventService {
   constructor(client) {
     this.client = client;
   }
 
-  test() {
-    return this.client.get("");
+  create(data) {
+    return this.client.post("/events", data);
   }
 }
