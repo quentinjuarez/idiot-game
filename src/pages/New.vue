@@ -1,7 +1,7 @@
 <template>
   <master-layout pageTitle="Nouvelle Partie">
     <Rules />
-    <Settings />
+    <Settings v-if="false" />
     <div class="new-game">
       <ion-button mode="ios" @click="startNewGame()">
         Commencer une partie

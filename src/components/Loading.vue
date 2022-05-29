@@ -7,7 +7,7 @@ import { loadingController } from "@ionic/vue";
 export default {
   name: "loading",
   props: {
-    timeout: { type: Number, default: 2000 },
+    timeout: { type: Number, default: 1000 },
     text: { type: String, default: "Au tour de" },
     open: { type: Boolean, default: false },
   },

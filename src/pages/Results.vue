@@ -7,7 +7,9 @@
         </ion-list-header>
         <ion-item class="loser" v-for="loser in losers" :key="loser.id">
           <ion-label>{{ loser.name }}</ion-label>
-          <ion-badge slot="end">{{ loser.maxScore.max() }}</ion-badge>
+          <ion-badge color="secondary" slot="end">{{
+            loser.maxScore.max()
+          }}</ion-badge>
         </ion-item>
       </ion-list>
     </ion-card>
@@ -24,7 +26,9 @@
           detail
         >
           <ion-label>{{ player.name }}</ion-label>
-          <ion-badge slot="end">{{ player.maxScore.max() }}</ion-badge>
+          <ion-badge color="secondary" slot="end">{{
+            player.maxScore.max()
+          }}</ion-badge>
         </ion-item>
       </ion-list>
     </ion-card>
@@ -42,7 +46,7 @@
             <ion-text color="medium">Le plus de lancer</ion-text>
             <h4>{{ player.name }}</h4>
           </ion-label>
-          <ion-badge slot="end"> {{ maxActions }}</ion-badge>
+          <ion-badge color="secondary" slot="end"> {{ maxActions }}</ion-badge>
         </ion-item>
       </ion-list>
     </ion-card>

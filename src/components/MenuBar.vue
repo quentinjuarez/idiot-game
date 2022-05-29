@@ -9,7 +9,9 @@
       <ion-list>
         <ion-item v-for="player in allPlayers" :key="player.id">
           <ion-label>{{ player.name }}</ion-label>
-          <ion-badge slot="end">{{ player.maxScore.max() }}</ion-badge>
+          <ion-badge color="secondary" slot="end">{{
+            player.maxScore.max()
+          }}</ion-badge>
         </ion-item>
       </ion-list>
     </ion-content>

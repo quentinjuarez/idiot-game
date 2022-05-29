@@ -27,6 +27,9 @@ import "./theme/variables.css";
 import MasterLayout from "./components/MasterLayout.vue";
 
 import store from "./store/index";
+import services from "./services/index";
+
+store.$services = services;
 
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
