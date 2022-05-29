@@ -1,7 +1,7 @@
 export const actions = {
-  create() {
+  startGame(_, params) {
     try {
-      this.$services.events.create({ name: "test" });
+      this.$services.events.create({ type: "game.start", meta: { params } });
     } catch (err) {
       return err;
     }

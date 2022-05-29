@@ -6,10 +6,6 @@
       <ion-button mode="ios" @click="startNewGame()">
         Commencer une partie
       </ion-button>
-
-      <ion-button mode="ios" @click="create()">
-        Test Event
-      </ion-button>
     </div>
   </master-layout>
 </template>
@@ -43,7 +39,6 @@ export default {
     },
     ...mapActions("game", ["startGame", "resetGame"]),
     ...mapActions("players", ["nextPlayer", "resetPlayersAllScores"]),
-    ...mapActions("events", ["create"]),
   },
 };
 </script>
