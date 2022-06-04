@@ -5,8 +5,9 @@ import { ShareService } from "./share";
 
 const client = axios.create({
   baseURL:
-    process.env.VUE_APP_BACK_URL ||
-    "https://idiot-game-server.alwaysdata.net/api",
+    process.env.NODE_ENV === "production"
+      ? "https://idiot-game-server.alwaysdata.net/api"
+      : process.env.VUE_APP_BACK_URL,
   //
   headers: { "Access-Control-Allow-Origin": "*" },
 });
