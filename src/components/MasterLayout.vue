@@ -7,7 +7,7 @@
           <ion-menu-button color="dark"></ion-menu-button>
         </ion-buttons>
         <ion-title mode="ios">{{ pageTitle }}</ion-title>
-        <ion-text slot="end" color="medium">0.1.2</ion-text>
+        <ion-text slot="end" color="medium">0.1.3</ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content>

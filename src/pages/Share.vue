@@ -59,10 +59,10 @@
       </div>
     </template>
     <Stats
-      v-if="false"
       :open="stats"
       @close="stats = false"
       :index="selected"
+      :players="allPlayers"
     />
   </master-layout>
 </template>

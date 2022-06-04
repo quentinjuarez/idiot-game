@@ -43,6 +43,7 @@ export default {
   props: {
     open: { type: Boolean, default: false },
     index: { type: Number, required: true },
+    players: { type: Array, required: false },
   },
   methods: {
     dismissModal() {
@@ -51,6 +52,10 @@ export default {
   },
   computed: {
     actions() {
+      if (this.players) {
+        console.log("test");
+        return this.players[this.index].actions;
+      }
       return this.allPlayers[this.index].actions;
     },
     ...mapGetters("players", ["allPlayers"]),
