@@ -1,5 +1,5 @@
 <template>
-  <master-layout pageTitle="Résultats">
+  <master-layout pageTitle="Partage">
     <ion-card>
       <ion-list>
         <ion-list-header>
@@ -51,40 +51,41 @@
       </ion-list>
     </ion-card>
 
-    <ShareButton />
-
     <template v-slot:footer>
       <div class="new-game">
         <ion-button mode="ios" @click="newGame()">
           Nouvelle partie
         </ion-button>
-        <ion-button mode="ios" @click="replayGame()">
-          Rejouer
-        </ion-button>
       </div>
     </template>
-    <Stats :open="stats" @close="stats = false" :index="selected" />
+    <Stats
+      v-if="false"
+      :open="stats"
+      @close="stats = false"
+      :index="selected"
+    />
   </master-layout>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import Stats from "../components/Stats";
-import ShareButton from "../components/ShareButton";
 
 export default {
-  name: "results",
+  name: "share",
   components: {
     Stats,
-    ShareButton,
   },
   data() {
     return {
       stats: false,
       selected: 0,
+      game: {},
+      allPlayers: [],
     };
   },
   computed: {
     finalScores() {
+      if (!this.allPlayers.length) return [];
       return this.allPlayers.map((player) => {
         return player.maxScore.max();
       });
@@ -101,6 +102,7 @@ export default {
       return this.allPlayers.filter((player, index) => argmax.includes(index));
     },
     allActions() {
+      if (!this.allPlayers.length) return [];
       return this.allPlayers.map((player) => {
         return player.actions;
       });
@@ -119,11 +121,12 @@ export default {
       );
       return this.allPlayers.filter((player, index) => indexes.includes(index));
     },
-    ...mapGetters("players", ["allPlayers"]),
-    ...mapGetters("game", ["ended"]),
   },
-  mounted() {
-    if (!this.ended) return this.$router.push({ path: "/new" });
+  async mounted() {
+    const { id } = this.$route.params;
+    const { game, players } = await this.getResults(id);
+    this.game = game;
+    this.allPlayers = players;
   },
   methods: {
     newGame() {
@@ -140,7 +143,7 @@ export default {
       this.selected = index;
       this.stats = true;
     },
-    ...mapActions("game", ["resetGame", "rePlay"]),
+    ...mapActions("game", ["resetGame", "rePlay", "getResults"]),
     ...mapActions("players", ["resetPlayers", "resetPlayersAllScores"]),
   },
 };

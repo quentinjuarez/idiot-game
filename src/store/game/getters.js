@@ -14,4 +14,8 @@ export const getters = {
   ended(state) {
     return state.ended;
   },
+
+  shared(state) {
+    return state.shared;
+  },
 };

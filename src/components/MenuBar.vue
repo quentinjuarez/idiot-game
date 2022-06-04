@@ -10,7 +10,7 @@
         <ion-item v-for="player in allPlayers" :key="player.id">
           <ion-label>{{ player.name }}</ion-label>
           <ion-badge color="secondary" slot="end">{{
-            player.maxScore.max()
+            player.maxScore.sum()
           }}</ion-badge>
         </ion-item>
       </ion-list>

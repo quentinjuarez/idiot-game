@@ -1,4 +1,4 @@
-import { uid } from "./utils";
+import { uid } from "../utils";
 
 export const actions = {
   nextPlayer({ commit }) {

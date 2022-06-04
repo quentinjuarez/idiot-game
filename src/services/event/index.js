@@ -1,5 +1,3 @@
-// import * as data from "./event.data";
-
 export class EventService {
   constructor(client) {
     this.client = client;

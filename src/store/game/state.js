@@ -1,5 +1,6 @@
 export const defaultState = () => {
   return {
+    id: null,
     started: false,
     params: {
       round: 3,
@@ -7,5 +8,6 @@ export const defaultState = () => {
     },
     round: 0,
     ended: false,
+    shared: null,
   };
 };

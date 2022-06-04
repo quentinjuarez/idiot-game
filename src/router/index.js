@@ -3,6 +3,7 @@ import Game from "../pages/Game.vue";
 import New from "../pages/New.vue";
 import Results from "../pages/Results.vue";
 import Players from "../pages/Players.vue";
+import Share from "../pages/Share.vue";
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: "/players",
     component: Players,
+  },
+  {
+    path: "/share/:id",
+    component: Share,
   },
   {
     path: "/:path(.*)*",
