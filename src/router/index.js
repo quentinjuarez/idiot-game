@@ -27,6 +27,10 @@ const routes = [
     component: Players,
   },
   {
+    path: "/share",
+    component: Share,
+  },
+  {
     path: "/share/:id",
     component: Share,
   },

@@ -134,6 +134,7 @@ export default {
   },
   async mounted() {
     const { id } = this.$route.params;
+    if (!id) return;
     const { data, success } = await this.getResults(id);
     if (!success) return;
     const { game, players } = data;
