@@ -36,14 +36,12 @@
   </ion-modal>
 </template>
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "stats",
   props: {
     open: { type: Boolean, default: false },
     index: { type: Number, required: true },
-    players: { type: Array, required: false },
+    players: { type: Array, required: true },
   },
   methods: {
     dismissModal() {
@@ -52,13 +50,8 @@ export default {
   },
   computed: {
     actions() {
-      if (this.players) {
-        console.log("test");
-        return this.players[this.index].actions;
-      }
-      return this.allPlayers[this.index].actions;
+      return this.players[this.index].actions;
     },
-    ...mapGetters("players", ["allPlayers"]),
   },
 };
 </script>

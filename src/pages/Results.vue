@@ -63,7 +63,12 @@
         </ion-button>
       </div>
     </template>
-    <Stats :open="stats" @close="stats = false" :index="selected" />
+    <Stats
+      :open="stats"
+      @close="stats = false"
+      :index="selected"
+      :players="allPlayers"
+    />
   </master-layout>
 </template>
 <script>
