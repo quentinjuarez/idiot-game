@@ -1,55 +1,65 @@
 <template>
   <master-layout pageTitle="Partage">
-    <ion-card>
-      <ion-list>
-        <ion-list-header>
-          {{ losersTitle }}
-        </ion-list-header>
-        <ion-item class="loser" v-for="loser in losers" :key="loser.id">
-          <ion-label>{{ loser.name }}</ion-label>
-          <ion-badge color="secondary" slot="end">{{
-            loser.maxScore.sum()
-          }}</ion-badge>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-    <ion-card>
-      <ion-list>
-        <ion-list-header>
-          Tous les joueurs
-        </ion-list-header>
-        <ion-item
-          v-for="(player, index) in allPlayers"
-          :key="player.id"
-          button
-          @click="openStats(index)"
-          detail
-        >
-          <ion-label>{{ player.name }}</ion-label>
-          <ion-badge color="secondary" slot="end">{{
-            player.maxScore.sum()
-          }}</ion-badge>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-    <ion-card>
-      <ion-list>
-        <ion-list-header>
-          Statistiques
-        </ion-list-header>
-        <ion-item
-          class="loser"
-          v-for="player in playerMaxActions"
-          :key="player.id"
-        >
-          <ion-label>
-            <ion-text color="medium">Le plus de lancer</ion-text>
-            <h4>{{ player.name }}</h4>
-          </ion-label>
-          <ion-badge color="secondary" slot="end"> {{ maxActions }}</ion-badge>
-        </ion-item>
-      </ion-list>
-    </ion-card>
+    <div v-if="allPlayers.length">
+      <ion-card>
+        <ion-list>
+          <ion-list-header>
+            {{ losersTitle }}
+          </ion-list-header>
+          <ion-item class="loser" v-for="loser in losers" :key="loser.id">
+            <ion-label>{{ loser.name }}</ion-label>
+            <ion-badge color="secondary" slot="end">{{
+              loser.maxScore.sum()
+            }}</ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+      <ion-card>
+        <ion-list>
+          <ion-list-header>
+            Tous les joueurs
+          </ion-list-header>
+          <ion-item
+            v-for="(player, index) in allPlayers"
+            :key="player.id"
+            button
+            @click="openStats(index)"
+            detail
+          >
+            <ion-label>{{ player.name }}</ion-label>
+            <ion-badge color="secondary" slot="end">{{
+              player.maxScore.sum()
+            }}</ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+      <ion-card>
+        <ion-list>
+          <ion-list-header>
+            Statistiques
+          </ion-list-header>
+          <ion-item
+            class="loser"
+            v-for="player in playerMaxActions"
+            :key="player.id"
+          >
+            <ion-label>
+              <ion-text color="medium">Le plus de lancer</ion-text>
+              <h4>{{ player.name }}</h4>
+            </ion-label>
+            <ion-badge color="secondary" slot="end">
+              {{ maxActions }}</ion-badge
+            >
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </div>
+
+    <div v-else class="error">
+      <ion-label>
+        {{ "Lien invalide" }}
+      </ion-label>
+    </div>
 
     <template v-slot:footer>
       <div class="new-game">
@@ -124,7 +134,9 @@ export default {
   },
   async mounted() {
     const { id } = this.$route.params;
-    const { game, players } = await this.getResults(id);
+    const { data, success } = await this.getResults(id);
+    if (!success) return;
+    const { game, players } = data;
     this.game = game;
     this.allPlayers = players;
   },
@@ -159,5 +171,12 @@ export default {
 :root {
   --ion-safe-area-top: 20px !important;
   --ion-safe-area-bottom: 22px !important;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>

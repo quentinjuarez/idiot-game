@@ -43,9 +43,9 @@ export const actions = {
   async getResults(_, id) {
     try {
       const { data } = await this.$services.share.get(id);
-      return data;
+      return { success: true, data };
     } catch (err) {
-      return err;
+      return { success: false, data: err };
     }
   },
 };
