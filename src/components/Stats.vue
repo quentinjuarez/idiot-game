@@ -5,7 +5,7 @@
     :is-open="open"
     :swipe-to-close="true"
     :presenting-element="$parent.$refs.ionRouterOutlet"
-    @didDismiss="$emit('close')"
+    @onDidDismiss="$emit('close')"
   >
     <ion-page>
       <ion-header translucent mode="ios">
