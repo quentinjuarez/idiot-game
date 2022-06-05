@@ -29,12 +29,12 @@ export default {
   methods: {
     startNewGame() {
       this.resetPlayersAllScores();
-      this.resetGame();
-      this.startGame();
       if (!this.params.players) {
+        this.startGame();
         this.nextPlayer();
         return this.$router.push({ path: "/game" });
       }
+      this.resetGame();
       return this.$router.push({ path: "/players" });
     },
     ...mapActions("game", ["startGame", "resetGame"]),

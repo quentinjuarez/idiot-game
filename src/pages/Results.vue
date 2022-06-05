@@ -138,14 +138,14 @@ export default {
     },
     replayGame() {
       this.resetPlayersAllScores();
-      this.rePlay();
+      this.startGame();
       return this.$router.push({ path: "/game" });
     },
     openStats(index) {
       this.selected = index;
       this.stats = true;
     },
-    ...mapActions("game", ["resetGame", "rePlay"]),
+    ...mapActions("game", ["resetGame", "startGame"]),
     ...mapActions("players", ["resetPlayers", "resetPlayersAllScores"]),
   },
 };

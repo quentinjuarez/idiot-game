@@ -1,39 +1,41 @@
 import { uid } from "../utils";
 
 export const actions = {
-  startGame({ commit, dispatch, state }) {
-    commit("startGame", true);
-    commit("setGameId", uid());
-
-    dispatch("events/startGame", state.params, { root: true });
+  startGame({ commit, dispatch }) {
+    commit("startGame", uid());
+    dispatch("events/game", "start", { root: true });
   },
 
   nextRound({ commit }) {
     commit("nextRound");
   },
 
-  resetGame({ commit }) {
-    commit("resetGame", uid());
+  resetGame({ commit, dispatch }, abort = false) {
+    if (abort) {
+      dispatch("events/game", "abort", { root: true });
+    }
+
+    commit("resetGame");
   },
 
-  endGame({ commit }) {
+  endGame({ commit, dispatch }) {
     commit("endGame", true);
+
+    dispatch("events/game", "end", { root: true });
   },
 
   updateParams({ commit }, { key, value }) {
     commit("updateParams", { key, value });
   },
 
-  rePlay({ commit }) {
-    commit("rePlay", uid());
-  },
-
-  async shareResults({ commit, rootState }) {
+  async shareResults({ commit, rootState, dispatch }) {
     const { game, players: playersModule } = rootState;
     const { players } = playersModule;
     try {
       const { data } = await this.$services.share.create({ game, players });
+
       commit("shareResults", data._id);
+      dispatch("events/game", "share", { root: true });
       return data._id;
     } catch (err) {
       return err;
