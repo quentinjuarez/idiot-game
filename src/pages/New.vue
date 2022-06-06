@@ -4,7 +4,10 @@
     <Settings v-if="false" />
     <div class="new-game">
       <ion-button mode="ios" @click="startNewGame()">
-        Commencer une partie
+        Partie Local
+      </ion-button>
+      <ion-button mode="ios" @click="createParty()">
+        Créer un salon
       </ion-button>
     </div>
   </master-layout>
@@ -37,7 +40,12 @@ export default {
       this.resetGame();
       return this.$router.push({ path: "/players" });
     },
-    ...mapActions("game", ["startGame", "resetGame"]),
+    createParty() {
+      this.resetPlayersAllScores();
+      this.initParty();
+      return this.$router.push({ path: "/party" });
+    },
+    ...mapActions("game", ["startGame", "resetGame", "initParty"]),
     ...mapActions("players", ["nextPlayer", "resetPlayersAllScores"]),
   },
 };

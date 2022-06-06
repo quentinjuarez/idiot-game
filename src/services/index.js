@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { EventService } from "./event";
 import { ShareService } from "./share";
+import { PartyService } from "./party";
 
 const client = axios.create({
   baseURL:
@@ -15,6 +16,7 @@ const client = axios.create({
 const services = {
   events: new EventService(client),
   share: new ShareService(client),
+  party: new PartyService(client),
 };
 
 export default services;

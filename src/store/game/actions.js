@@ -1,4 +1,4 @@
-import { uid } from "../utils";
+import { uid, partyCode } from "../utils";
 
 export const actions = {
   startGame({ commit, dispatch }) {
@@ -28,6 +28,8 @@ export const actions = {
     commit("updateParams", { key, value });
   },
 
+  // SHARE
+
   async shareResults({ commit, rootState, dispatch }) {
     const { game, players: playersModule } = rootState;
     const { players } = playersModule;
@@ -45,6 +47,33 @@ export const actions = {
   async getResults(_, id) {
     try {
       const { data } = await this.$services.share.get(id);
+      return { success: true, data };
+    } catch (err) {
+      return { success: false, data: err };
+    }
+  },
+
+  // PARTY
+  async initParty({ commit }) {
+    commit("initParty", uid());
+  },
+
+  async createParty({ commit, state }, name) {
+    try {
+      commit("createParty", { name, code: partyCode() });
+      const { data } = await this.$services.party.create(state);
+
+      return { success: true, data };
+    } catch (err) {
+      return { success: false, data: err };
+    }
+  },
+
+  async joinParty({ commit }, { code, user }) {
+    try {
+      const { data } = await this.$services.party.join(code, user);
+
+      commit("joinParty", data);
       return { success: true, data };
     } catch (err) {
       return { success: false, data: err };

@@ -4,6 +4,8 @@ import New from "../pages/New.vue";
 import Results from "../pages/Results.vue";
 import Players from "../pages/Players.vue";
 import Share from "../pages/Share.vue";
+import Party from "../pages/Party.vue";
+import Join from "../pages/Join.vue";
 
 const routes = [
   {
@@ -33,6 +35,14 @@ const routes = [
   {
     path: "/share/:id",
     component: Share,
+  },
+  {
+    path: "/party",
+    component: Party,
+  },
+  {
+    path: "/join/:id",
+    component: Join,
   },
   {
     path: "/:path(.*)*",

@@ -27,4 +27,15 @@ export const mutations = {
   shareResults(state, id) {
     state.shared = id;
   },
+
+  // PARTY
+  initParty(state, uid) {
+    state.id = uid;
+    state.params.party = true;
+  },
+
+  createParty(state, payload) {
+    state.name = payload.name;
+    state.code = payload.code;
+  },
 };

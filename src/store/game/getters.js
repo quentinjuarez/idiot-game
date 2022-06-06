@@ -18,4 +18,17 @@ export const getters = {
   shared(state) {
     return state.shared;
   },
+
+  // PARTY
+  isParty(state) {
+    return state.params.party;
+  },
+
+  partyName(state) {
+    return state.name;
+  },
+
+  partyCode(state) {
+    return state.code;
+  },
 };

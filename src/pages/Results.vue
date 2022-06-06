@@ -51,7 +51,7 @@
       </ion-list>
     </ion-card>
 
-    <ShareButton />
+    <ShareResults />
 
     <template v-slot:footer>
       <div class="new-game">
@@ -74,13 +74,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Stats from "../components/Stats";
-import ShareButton from "../components/ShareButton";
+import ShareResults from "../components/ShareResults";
 
 export default {
   name: "results",
   components: {
     Stats,
-    ShareButton,
+    ShareResults,
   },
   data() {
     return {

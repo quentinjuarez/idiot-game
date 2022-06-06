@@ -19,7 +19,7 @@ import { mapGetters, mapActions } from "vuex";
 import Loading from "../components/Loading";
 
 export default {
-  name: "share-button",
+  name: "share-results",
   components: {
     Loading,
   },
